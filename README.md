@@ -1,14 +1,40 @@
 # MicroLab
 
-This repository contains the source processing files for MicroLab, which is still being developed.
+This repository contains the source Processing files for MicroLab, a particle simulation software that demonstrates complex emergent behavior and forms life-like structures. The project is currently under active development.
 
-## Up and running
+## Features
 
-1. Download the ZIP file from the repository **OR** git clone to a folder and then skip to **Step 3**.
-2. Extract the files.
-3. Open the extracted folder in your Processing IDE.
-4. Ensure all `.pde` files are present.
-5. You should be able to run the software.
+-   **Particle Simulation**: Simulates particles with emergent behaviors.
+-   **Life-like Structures**: Demonstrates the formation of complex, self-organizing patterns.
+-   **Processing-based**: Built using the Processing development environment.
+
+## Technologies Used
+
+-   **Processing**: A flexible software sketchbook and a language for learning how to code within the context of the visual arts.
+
+## Up and Running
+
+1.  Download the ZIP file from the repository **OR** git clone to a folder and then skip to **Step 3**.
+2.  Extract the files.
+3.  Open the extracted folder in your Processing IDE.
+4.  Ensure all `.pde` files are present (GUI.pde, Manager.pde, MicroLab.pde, Mouse.pde, Particle.pde, Type.pde).
+5.  You should be able to run the software.
+
+## Project Structure
+
+```
+MicroLab/
+├── GUI.pde           # Handles the graphical user interface
+├── Manager.pde       # Manages simulation logic and interactions
+├── MicroLab.pde      # Main Processing sketch file
+├── Mouse.pde         # Handles mouse interactions
+├── Particle.pde      # Defines particle properties and behaviors
+├── Type.pde          # Defines different types of particles
+├── LICENSE           # Project license
+├── README.md         # Project README file
+└── sketch.properties # Processing sketch properties
+```
 
 ## License
-This whole software and complete repository is licensed under the MIT License, which is available within the LICENSE file.
+
+This software and complete repository are licensed under the MIT License, which is available within the LICENSE file.
