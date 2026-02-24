@@ -1,12 +1,12 @@
 class GUI {
    Manager man;
-   Button menuButton, mouseToolButton, restartButton, newTypesButton, pauseButton, clearButton, renderTypeButton, zoomInButton, zoomOutButton;
+   Button menuButton, mouseToolButton, restartButton, newTypesButton, pauseButton, clearButton, renderModeButton, zoomInButton, zoomOutButton, newRulesButton, evolveRulesButton;
    
    int selected = null;
    int frameIndex = 0, fps = 0, lastTime = millis(), time = 0;
    boolean running = true, justPressed = false, isSelected = false;
    
-   int guiBase = 50, guiStroke = 150, guiStrokeWeight = 2;
+   int guiBase = 50, guiStroke = 200, guiStrokeWeight = 2;
    float guiRadius = 17.5, guiDiameter = guiRadius * 2, space = guiRadius * 2 + 10;
    float guiButtonWidth = 215, guiButtonHeight = 45;
    
@@ -20,10 +20,12 @@ class GUI {
       newTypesButton = new Button(bx, 7 * (space - guiRadius), guiButtonWidth, guiButtonHeight, "New Types");
       pauseButton = new Button(bx, 9 * (space - guiRadius), guiButtonWidth, guiButtonHeight, "Pause");
       clearButton = new Button(bx, 11 * (space - guiRadius), guiButtonWidth, guiButtonHeight, "Clear Microenvironment");
-      renderTypeButton = new Button(bx, 13 * (space - guiRadius), guiButtonWidth, guiButtonHeight, "Toggle Render Type");
+      renderModeButton = new Button(bx, 13 * (space - guiRadius), guiButtonWidth, guiButtonHeight, "Toggle Render Mode"); 
+      newRulesButton = new Button(bx, 15 * (space - guiRadius), guiButtonWidth, guiButtonHeight, "New Rules");
+      evolveRulesButton = new Button(bx, 17 * (space - guiRadius), guiButtonWidth, guiButtonHeight, "Evolve Rules");
       
-      zoomInButton = new Button(bxSmall, height - 8 * (space - guiRadius), 60, 60, "+", true);
-      zoomOutButton = new Button(bxSmall, height - 5 * (space - guiRadius), 60, 60, "-", true);
+      zoomInButton = new Button(bxSmall, height - 6.5 * (space - guiRadius), 60, 60, "+", true);
+      zoomOutButton = new Button(bxSmall, height - 4 * (space - guiRadius), 60, 60, "-", true);
    }
    
    void update() {
@@ -41,7 +43,7 @@ class GUI {
    
    void updateFPS() {
       int currentTime = millis();
-      if (currentTime - lastTime > 1000) {
+      if (currentTime - lastTime > 1000 && gui.running) {
          fps = frameCount;
          frameCount = 0;
          lastTime = currentTime;
@@ -56,24 +58,20 @@ class GUI {
    }
    
    void displayTypeSelector() {
-      colorMode(HSB, 360, 100, 100);
       for (int i = 0; i < man.types.size(); i++) {
-         fill(man.types.get(i).c, 100, 100);
+         fill(man.types.get(i).c);
          noStroke();
          if (selected != null && selected == i && isSelected) {
-            colorMode(RGB, 255, 255, 255);
             stroke(guiStroke);
-            strokeWeight(guiStrokeWeight);
+            strokeWeight(guiStrokeWeight + 1);
          }
-         colorMode(HSB, 360, 100, 100);
          ellipse(space + i * space, space, guiDiameter, guiDiameter);
          noStroke();
       }
-      colorMode(RGB, 255, 255, 255);
    }
    
    void displayMenu() {
-      for (Button b : new Button[]{menuButton, mouseToolButton, restartButton, newTypesButton, pauseButton, clearButton, renderTypeButton, zoomInButton, zoomOutButton})
+      for (Button b : new Button[]{menuButton, mouseToolButton, restartButton, newTypesButton, pauseButton, clearButton, renderModeButton, zoomInButton, zoomOutButton, newRulesButton, evolveRulesButton})
       b.display();
    }
    
@@ -94,12 +92,12 @@ class GUI {
       };
       
       for (int i = 0; i < lines.length; i++) text(lines[i], space - guiRadius, 100 + (i + 1) * 30 - 30);
-
-textSize(13);
       
-      text("MicroLab v1.9.7 |  Download Instructions & Information: https://www.github.com/notzen3264/MicroLab", space - guiRadius, height - 30);
+      textSize(13);
+      
+      text("MicroLab v2.0.0 | Watch organisms emerge from primordial soup! | https://www.github.com/notzen3264/MicroLab", space - guiRadius, height - 30);
       textAlign(RIGHT);
-      text("Blackwell Labs | Scientific Department | Software by @notzen3264", width - (space - guiRadius), height - 30);
+      text("Blackwell Labs | Software by @notzen3264 (223184 CAMVC)", width - (space - guiRadius), height - 30);
    }
    
    void mouseDragged() {
@@ -118,9 +116,14 @@ textSize(13);
       if (mouseToolButton.isClicked()) { selected = null; mouse.selected ^= true; mouseToolButton.isSelected ^= true; return; }
       if (newTypesButton.isClicked()) { man.particles.clear(); man.types.clear(); man.randomTypes(); time = 0; useInitialParticles = true; return; }
       if (restartButton.isClicked()) { man.particles.clear(); time = 0; useInitialParticles = true; return; }
-      if (renderTypeButton.isClicked()) { useRect ^= true; renderTypeButton.isSelected ^= true; return; }
+      if (renderModeButton.isClicked()) { useRect ^= true; renderModeButton.isSelected ^= true;
+      return; }
+      if (newRulesButton.isClicked()) { man.newRules();
+      return; }
+      if (evolveRulesButton.isClicked()) { evolveRulesButton.isSelected ^= true; useEvolveRules ^= true;
+      return; }
       if (menuButton.isClicked()) {
-         for (Button b : new Button[]{mouseToolButton, restartButton, newTypesButton, pauseButton, clearButton, renderTypeButton})
+         for (Button b : new Button[]{mouseToolButton, restartButton, newTypesButton, pauseButton, clearButton, renderModeButton, newRulesButton, evolveRulesButton})
          b.isDisplay ^= true;
          menuButton.isSelected ^= true;
          return;
@@ -175,15 +178,17 @@ class Button {
          stroke(gui.guiStroke);
          strokeWeight(gui.guiStrokeWeight);
       } else noStroke();
-      rect(x, y, w, h);
+      rect(x, y, w, h, 7.5);
       fill(255);
       if (label == gui.zoomInButton.label || label == gui.zoomOutButton.label) {
-         textSize(35);
+         float buttonTextSize = 35;
       } else {
-         textSize(16);
+         float buttonTextSize = 16;
       }
+      
+      textSize(buttonTextSize);
       textAlign(CENTER, CENTER);
-      text(label, x + w / 2, y + h / 2);
+      text(label, x + w / 2, y + h / 2 + buttonTextSize / 2.5 - 1);
    }
    
    boolean isMouseOver() {

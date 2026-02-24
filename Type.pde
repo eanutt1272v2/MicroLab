@@ -1,12 +1,12 @@
 class Type {
-  float c;
+  color c;
   float typeRadius;
   float[] attraction;
   float[] middle;
   float[] repelDist;
   int index;
 
-  Type(float c, float typeRadius, float[] attraction, float[] middle, float[] repelDist, ArrayList<Type> typeList) {
+  Type(color c, float typeRadius, float[] attraction, float[] middle, float[] repelDist, ArrayList<Type> typeList) {
     this.c = c;
     this.typeRadius = typeRadius;
     this.attraction = attraction;

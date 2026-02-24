@@ -1,18 +1,21 @@
+// Main File
+
 int initialParticlesNum = 3000;
 float viscosity = 0.85;
-float maxSpeed = 50;
+float maxSpeed = 500;
 float worldScale = 0.5;
 
 boolean useInitialParticles = true;
-boolean useInstant = false;
+boolean useInstant = true;
 boolean useRect = false;
+boolean useEvolveRules = false;
 
 boolean isDesktop;
 int trueScreenWidth;
 int trueScreenHeight;
 
 float zoom = 1;
-float zoomRate = 1.1;
+float zoomRate = 1.05;
 float offsetX = 0;
 float offsetY = 0;
 float originX;
@@ -36,7 +39,7 @@ void settings() {
    } else {
       trueScreenWidth  = screenWidth;
       trueScreenHeight = screenHeight;
-      size(screenWidth, screenHeight, P2D);
+      size(screenWidth, screenHeight);
    }
 }
 

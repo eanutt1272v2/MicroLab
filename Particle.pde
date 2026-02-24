@@ -13,17 +13,15 @@ class Particle {
       
       noStroke();
       
-      colorMode(HSB, 360, 100, 100);
-
-      fill(type.c, 100, 100);
+      fill(type.c);
       
       if (useRect) {
          rect(newPos.x - newRadius / 2, newPos.y - newRadius / 2, newRadius, newRadius);
-      } else {
+      }
+
+      if (!useRect) {
          ellipse(newPos.x, newPos.y, newRadius, newRadius);
       }
-      
-      colorMode(RGB, 255, 255, 255);
    }
    
    void update(ArrayList<Particle> particles) {
