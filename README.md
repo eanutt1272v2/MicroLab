@@ -37,4 +37,4 @@ MicroLab/
 
 ## License
 
-Distributed under the MIT License. See LICENSE for more information.
+This project is distributed under the MIT License. For more information, please refer to the `LICENSE` file in the root of the repository.
