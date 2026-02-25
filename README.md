@@ -5,7 +5,7 @@ This repository contains the source Processing files for MicroLab, a particle si
 ## Features
 
 -   **Particle Simulation**: Simulates particles with emergent behaviors.
--   **Life-like Structures**: Demonstrates the formation of complex, self-organizing patterns.
+-   **Life-like Structures**: Demonstrates the formation of complex, self-organising patterns.
 -   **Processing-based**: Built using the Processing development environment.
 
 ## Technologies Used
