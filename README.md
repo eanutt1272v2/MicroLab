@@ -37,4 +37,4 @@ MicroLab/
 
 ## License
 
-This software and complete repository are licensed under the MIT License, which is available within the LICENSE file.
+Distributed under the MIT License. See LICENSE for more information.
