@@ -1,5 +1,8 @@
 # MicroLab [DEPRECATED]
 
+> [!CAUTION]
+> **This project is no longer maintained.** Development has halted indefinitely, and no further updates or support will be provided.
+
 This repository contains the source Processing files for MicroLab, a particle simulation software that demonstrates complex emergent behavior and forms life-like structures.
 
 ## Technologies
